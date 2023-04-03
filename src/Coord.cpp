@@ -68,10 +68,7 @@ Coord &Coord::operator/=(const float &f)
 
 float &Coord::operator[](int dim)
 {
-
-
-
-
+    return 0.0f;
 }
 
 float Coord::operator[](int dim) const

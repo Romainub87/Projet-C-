@@ -2,6 +2,7 @@
 #include <deque>
 #include <algorithm>
 #include "Sommet.h"
+#include "Graphe.h"
 #include "Arete.h"
 using namespace std;
 
@@ -34,5 +35,15 @@ int main(int argc, char *argv[])
 
     return 0;
     */
+
+    Graphe g;
+
+    g = Graphe::charger(argv[1]);
+
+    // afficher nb d'aretes
+    cout << "Nombre d'aretes : " << g.getNbAretes() << endl;
+
+    // afficher nb de sommets
+    cout << "Nombre de sommets : " << g.getNbSommets() << endl;
 } 
 
