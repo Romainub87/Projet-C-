@@ -1,7 +1,6 @@
 #include "Couleur.h"
 
 
-
 Couleur::Couleur()
 {
     this->r = 0;

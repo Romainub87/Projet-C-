@@ -1,9 +1,9 @@
 #include <iostream>
-#include <deque>
-#include <algorithm>
 #include "Sommet.h"
 #include "Graphe.h"
 #include "Arete.h"
+#include "GrapheValue.h"
+#include "Appli.h"
 using namespace std;
 
 const int LARGEUR = 1200;
@@ -11,7 +11,7 @@ const int HAUTEUR = 800;
 
 int main(int argc, char *argv[])
 {
-    /*
+    
     if (argc != 2){
         cout << "Usage: ./app <graph_file>.txt" << endl;
         return 1;
@@ -34,16 +34,6 @@ int main(int argc, char *argv[])
         app.exec();
 
     return 0;
-    */
-
-    Graphe g;
-
-    g = Graphe::charger(argv[1]);
-
-    // afficher nb d'aretes
-    cout << "Nombre d'aretes : " << g.getNbAretes() << endl;
-
-    // afficher nb de sommets
-    cout << "Nombre de sommets : " << g.getNbSommets() << endl;
+    
 } 
 

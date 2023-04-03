@@ -1,4 +1,5 @@
-
+#ifndef COULEUR_H
+#define COULEUR_H
 class Couleur
 {
 private:
@@ -15,3 +16,4 @@ public:
     
 };
 
+#endif
