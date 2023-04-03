@@ -11,8 +11,8 @@ class Graphe
 private:
  /* args */
   std::vector<Sommet> ListSommet = {}
- Arete listArete;
- Sommet listSommet;
+  std::vector<Arete> ListSommet = {}
+    
 public:
     /// @brief 
     /// @param valide 
