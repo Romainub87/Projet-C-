@@ -1,7 +1,7 @@
 #include <iostream>
-using namespace std;
 #include "Sommet.h"
 
+using namespace std;
 
 int main() {
     cout << "main" << endl;
