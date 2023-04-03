@@ -2,7 +2,7 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ "main", "etape1" ]
+    branches: [ "main","benjamin" ]
   pull_request:
     branches: [ "main" ]
 
@@ -13,5 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: make
       run: make
+    
