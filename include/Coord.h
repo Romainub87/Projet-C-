@@ -20,10 +20,9 @@ public:
     Coord &operator-=(const Coord &c);
     Coord operator*(const float &f) const;
     Coord operator/(const float &f) const;
-    Coord &operator*=(const float &f);
-    Coord &operator/=(const float &f);
-    float &operator[](int dim);
+    Coord& operator*=(const float &f);
+    Coord& operator/=(const float &f);
     float operator[](int dim) const;
-}
+};
 
 #endif

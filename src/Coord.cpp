@@ -73,6 +73,14 @@ float &Coord::operator[](int dim)
 
 float Coord::operator[](int dim) const
 {
-    return 0.0f;
+    Coord tmp(this->abs /= f, this->ord /= f);
+    return tmp;
+}
+
+float Coord::operator[](int dim) const
+{
+    if(dim == 0){ return this->abs; }
+    if(dim == 1) { return this->ord; }
+    return 0.0f; // Valeur de retour par défaut
 }
 
