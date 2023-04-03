@@ -10,9 +10,10 @@ int main() {
     Sommet l;
     cout << n.getID() << endl;
     cout << l.getID() << endl;
-    Graphe g;
+    
+    /*Graphe g;
 
     g.ajouterArete(n,l);
     cout << g.voisins(n) << endl;
-    
+    */
 }

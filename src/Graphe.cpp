@@ -1,4 +1,4 @@
-#include "Graphe.h"
+/*#include "Graphe.h"
 #include "Arete.h"
 #include "Sommet.h"
 using namespace std;
@@ -53,13 +53,14 @@ std::set<Sommet> voisins(const Sommet& n){
         voisins.insert(Graphe::aretes2Extremites[it]);
     }
 
-return voisins;
+return voisins;make_index_sequenc
 
 }
-    /*std::set<Arete> incidentes(const Sommet& n) const;
+    std::set<Arete> incidentes(const Sommet& n) const;
     
     Sommet source(const Arete &e) const;
     Sommet destination(const Arete &e) const;
     int degre(const Sommet& n) const;
     int nbSommets() const;
-    int nbAretes() const;*/
+    int nbAretes() const;
+*/
