@@ -67,9 +67,15 @@ Coord& Coord::operator*=(const float &f)
 
 Coord& Coord::operator/=(const float &f)
 {
-    this->abs /= f;
-    this->ord /= f;
-    return Coord&(this->abs, this->ord);
+    Coord tmp(this->abs /= f, this->ord /= f);
+    return tmp;
+}
+
+float Coord::operator[](int dim) const
+{
+    if(dim == 0){ return this->abs; }
+    if(dim == 1) { return this->ord; }
+    return 0.0f; // Valeur de retour par défaut
 }
 
 
