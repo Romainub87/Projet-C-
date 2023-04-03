@@ -16,7 +16,8 @@ public:
     int getID() const;
     bool getValide() const;
     int static curr_id;
-    bool operator==(const Sommet& autre) const;
+    bool operator==(const Sommet &autre) const;
+    bool operator<(const Sommet &autre) const;
 };
 
 #endif

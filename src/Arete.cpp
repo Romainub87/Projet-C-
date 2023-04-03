@@ -19,3 +19,13 @@ bool Arete::getValide() const
 {
     return this->valide;
 }
+
+bool Arete::operator==(const Arete &autre) const
+{
+    return this->getID() == autre.getID();
+}
+
+bool Arete::operator<(const Arete &autre) const
+{
+    return this->getID() < autre.getID();
+}

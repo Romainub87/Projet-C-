@@ -1,66 +1,52 @@
-/*#include "Graphe.h"
-#include "Arete.h"
-#include "Sommet.h"
+#include "Graphe.h"
+#include <iostream>
+#include <set>
 using namespace std;
 
-Graphe::ajouterSommet()
+std::map<Arete, std::pair<Sommet, Sommet>> Graphe::aretes2Extremites;
+std::map<Sommet, std::set<Arete>> Graphe::sommets2Incidentes;
+
+int Graphe::nbAretes() const
+{
+    return 0;
+}
+
+Sommet Graphe::ajouterSommet()
 {
     Sommet s;
     Graphe::m_sommets.insert(s);
+    return s;
 }
 
-
-Graphe::ajouterArrete(cons Sommet &n1, const Sommet &n2)
+Arete Graphe::ajouterArete(const Sommet &n1, const Sommet &n2)
 {
-    Arrete e;
-    Graphe::m_aretes.insert(e)
-    Graphe::aretes2Extremites.insert(std::make_pair(e, n1));
-    Graphe::aretes2Extremites.insert(std::make_pair(e, n2));
-    
-}
-    
-Graphe::supprimerSommet( const Sommet &n)
-{
-    Graphe::m_sommets.erase(n);
-    
-}
+    Arete a;
+    Graphe::m_aretes.insert(a);
 
-Graphe::supprimerArete(const Arete &e)
-{
-    Graphe::m_aretes.erase(e);
-}
+    Graphe::aretes2Extremites.insert({a, std::make_pair(n1, n2)});
 
-std::set<Sommet> sommets()
-{
-    return Graphe::m_sommets
-}
-
-std::set<Arete> aretes()
-{
-    return Graphe::m_aretes
-}
-
-std::set<Sommet> voisins(const Sommet& n){
-    std::set<Sommet> voisins;
-    std::set<Arete> tmpAretes;
-    for (auto it = aretes2Extremites.begin(); it != aretes2Extremites.end(); ++it) {
-        if (it->second == n) {
-            std::cout << "Key: " << it->first << std::endl;
-            tmpAretes.insert(it->first);
-        }
+    if (Graphe::sommets2Incidentes.find(n1) == Graphe::sommets2Incidentes.end())
+    {
+        set<Arete> aretes;
+        aretes.insert(a);
+        Graphe::sommets2Incidentes[n1] = aretes;
     }
-    for (auto it = tmpAretes.begin(); it != tmpAretes.end(); ++it) {
-        voisins.insert(Graphe::aretes2Extremites[it]);
+    else
+    {
+        Graphe::sommets2Incidentes[n1].insert(a);
     }
 
-return voisins;make_index_sequenc
+    if (Graphe::sommets2Incidentes.find(n2) == Graphe::sommets2Incidentes.end())
+    {
+        set<Arete> aretes;
+        aretes.insert(a);
+        Graphe::sommets2Incidentes[n2] = aretes;
+    }
+    else
+    {
+        Graphe::sommets2Incidentes[n2].insert(a);
+    }
 
+    return a;
 }
-    std::set<Arete> incidentes(const Sommet& n) const;
-    
-    Sommet source(const Arete &e) const;
-    Sommet destination(const Arete &e) const;
-    int degre(const Sommet& n) const;
-    int nbSommets() const;
-    int nbAretes() const;
-*/
+

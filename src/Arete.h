@@ -16,6 +16,8 @@ public:
     int getID() const;
     bool getValide() const;
     int static curr_id;
+    bool operator==(const Arete &autre) const;
+    bool operator<(const Arete &autre) const;
 };
 
 #endif

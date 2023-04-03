@@ -27,3 +27,8 @@ bool Sommet::operator==(const Sommet &autre) const
 {
     return this->getID() == autre.getID();
 }
+
+bool Sommet::operator<(const Sommet &autre) const
+{
+    return this->getID() < autre.getID();
+}

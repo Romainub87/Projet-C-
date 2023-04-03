@@ -5,24 +5,21 @@ using namespace std;
 #include "Arete.h"
 #include "Graphe.h"
 
-int main() {
+int main()
+{
     cout << "main" << endl;
-    Sommet n;
-    Sommet l;
-    cout << n.getID() << endl;
-    cout << l.getID() << endl;
-    if (n == l)
-    {
-        std::cout << "Les sommets sont égaux." << std::endl;
-    }
-    else
-    {
-        std::cout << "Les sommets sont différents." << std::endl;
-    }
-    
+
     Graphe g;
 
-    g.ajouterArete(n,l);
-    cout << g.voisins(n) << endl;
-    
+    Sommet n1 = g.ajouterSommet();
+    Sommet n2 = g.ajouterSommet();
+    Sommet n3 = g.ajouterSommet();
+    Arete a1 = g.ajouterArete(n1, n2);
+    Arete a2 = g.ajouterArete(n1, n3);
+
+    cout << a1.getID() << endl;
+    cout << a2.getID() << endl;
+
+    cout << n1.getID() << endl;
+    cout << n2.getID() << endl;
 }
