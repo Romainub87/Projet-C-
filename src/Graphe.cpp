@@ -1,6 +1,10 @@
 #include "Graphe.h"
+#include "utils.h"
 #include <iostream>
+#include <vector>
 #include <set>
+#include <map>
+#include <fstream>
 using namespace std;
 
 std::map<Arete, std::pair<Sommet, Sommet>> Graphe::aretes2Extremites;
@@ -122,6 +126,56 @@ void Graphe::supprimerArete(const Arete &e)
     {
         sommet.second.erase(e);
     }
+}
+
+bool Graphe::charger(std::string fichier)
+{
+    map<int, Sommet> idSommet;
+
+    // Ajout des sommets
+    bool sommetsFinis = false;
+    std::ifstream in(fichier.c_str());
+    while (!in.eof())
+    {
+        char ligne[10000];
+        in.getline(ligne, 10000);
+        string lignes(ligne);
+        lignes = lignes.substr(0, lignes.size() - 1);
+        if (lignes == "#sommets")
+        {
+            continue;
+        }
+        else if (lignes == "#aretes")
+        {
+            sommetsFinis = true;
+        }
+        else if (!sommetsFinis)
+        {
+            int id = stoi(lignes);
+            if (idSommet.find(id) != idSommet.end())
+                return false; // deux fois le meme identifiant dans le fichier
+            Sommet n = ajouterSommet();
+            idSommet[id] = n;
+        }
+        else if (sommetsFinis && lignes != "")
+        {
+            vector<string> items;
+            decouper(lignes, items, " ");
+            if (items.size() != 2)
+                return false;
+
+            int id1 = stoi(items[0]);
+            int id2 = stoi(items[1]);
+
+            // test si les id sont corrects
+            if (idSommet.find(id1) == idSommet.end() || idSommet.find(id2) == idSommet.end())
+                return false;
+            Sommet n1 = idSommet[id1];
+            Sommet n2 = idSommet[id2];
+            ajouterArete(n1, n2);
+        }
+    }
+    return true;
 }
 
 
