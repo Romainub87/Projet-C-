@@ -3,6 +3,7 @@
 
 #include "Arete.h"
 #include "Sommet.h"
+#include <string>
 #include <set>
 #include <map>
 class Graphe
@@ -24,6 +25,7 @@ public:
     Arete ajouterArete(const Sommet &n1, const Sommet &n2);
     void supprimerSommet(const Sommet &n);
     void supprimerArete(const Arete &e);
+    bool charger(std::string fichier) ;
     static std::map<Arete, std::pair<Sommet, Sommet>> aretes2Extremites;
     static std::map<Sommet, std::set<Arete>> sommets2Incidentes;
 };
