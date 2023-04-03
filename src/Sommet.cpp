@@ -22,3 +22,8 @@ bool Sommet::getValide() const
 {
     return this->valide;
 }
+
+bool Sommet::operator==(const Sommet & autre) const
+{
+    return this->getID() == autre.getID();
+}
