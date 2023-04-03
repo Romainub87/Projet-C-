@@ -5,8 +5,9 @@ using namespace std;
 #include "Arete.h"
 #include "Graphe.h"
 
-int main()
+int main(int argc, char* argv[])
 {
+    /*
     cout << "main" << endl;
 
     Graphe g;
@@ -58,5 +59,13 @@ int main()
 
     g.supprimerSommet(n1);
     cout << "nb sommets: " << g.nbSommets() << endl;
-    
+    */
+
+    Graphe g;
+
+    // mettre l'argument 1 du terminal en parametres de la methode charger
+    g.charger(argv[1]);
+
+    cout << "nb sommets: " << g.nbSommets() << endl;
+    cout << "nb aretes: " << g.nbAretes() << endl;
 }
