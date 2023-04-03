@@ -1,10 +1,8 @@
 #include <iostream>
 #include <deque>
 #include <algorithm>
-#include "GrapheValue.h"
 #include "Sommet.h"
 #include "Arete.h"
-#include "Appli.h"
 using namespace std;
 
 const int LARGEUR = 1200;
@@ -12,6 +10,7 @@ const int HAUTEUR = 800;
 
 int main(int argc, char *argv[])
 {
+    /*
     if (argc != 2){
         cout << "Usage: ./app <graph_file>.txt" << endl;
         return 1;
@@ -34,5 +33,6 @@ int main(int argc, char *argv[])
         app.exec();
 
     return 0;
+    */
 }
 

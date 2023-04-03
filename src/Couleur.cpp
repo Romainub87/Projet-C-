@@ -18,7 +18,7 @@ Couleur::Couleur(int r, int g, int b, int alpha)
     this->alpha = alpha;
 }
 
-Couleur Couleur::interpoler(const Couleur &c, float t) const
+Couleur Couleur::interpoler(const Couleur &c, float t)
 {
     int r = this->r + (c.r - this->r) * t;
     int g = this->g + (c.g - this->g) * t;
@@ -29,5 +29,5 @@ Couleur Couleur::interpoler(const Couleur &c, float t) const
 
 bool Couleur::operator==(const Couleur &c) const
 {
-    return this.r == c.r && this.g == c.g && this.b == c.b && this.alpha == c.alpha;
+    return this->r == c.r && this->g == c.g && this->b == c.b && this->alpha == c.alpha;
 }

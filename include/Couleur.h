@@ -10,12 +10,7 @@ private:
 public:
     Couleur();
     Couleur(int r, int g, int b, int alpha);
-    Couleur interpoler(const Couleur &c, float t) const;
-    const int& operator const;
-    int& operator;
-    /// @brief 
-    /// @param c 
-    /// @return 
+    Couleur interpoler(const Couleur &c, float t);
     bool operator==(const Couleur &c) const;
     
 };
