@@ -2,6 +2,23 @@
 
 using namespace std;
 
-Sommet::Sommet(bool valide = true)
+int Sommet::curr_id = 0;
+
+/// @brief 
+/// @param valide 
+Sommet::Sommet(bool b)
 {
+    valide = b;
+    id = Sommet::curr_id;
+    Sommet::curr_id++;   
+}
+
+int Sommet::getID() const
+{
+    return this->id;
+}
+
+bool Sommet::getValide() const
+{
+    return this->valide;
 }
