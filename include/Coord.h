@@ -13,15 +13,17 @@ public:
     Coord();
     Coord(float x, float y);
     float norm() const;
-    bool operator==(const Coord &c) const ;
-    Coord operator+(const Coord &c) const ;
-    Coord operator-(const Coord &c) const ;
-    Coord& operator+=(const Coord &c);
-    Coord& operator-=(const Coord &c);
-    Coord operator*(const float &f) const ;
+    bool operator==(const Coord &c) const;
+    Coord operator+(const Coord &c) const;
+    Coord operator-(const Coord &c) const;
+    Coord &operator+=(const Coord &c);
+    Coord &operator-=(const Coord &c);
+    Coord operator*(const float &f) const;
     Coord operator/(const float &f) const;
-    Coord& operator*=(const float &f);
-    Coord& operator/=(const float &f);
-};
+    Coord &operator*=(const float &f);
+    Coord &operator/=(const float &f);
+    float &operator[](int dim);
+    float operator[](int dim) const;
+}
 
 #endif
