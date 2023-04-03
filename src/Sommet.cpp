@@ -2,15 +2,15 @@
 
 using namespace std;
 
-int lastId = 1;
+int Sommet::curr_id = 0;
 
 /// @brief 
 /// @param valide 
-Sommet::Sommet(bool valide)
+Sommet::Sommet(bool b)
 {
-    this->valide = valide;
-    this->id = lastId;
-    lastId++;   
+    valide = b;
+    id = Sommet::curr_id;
+    Sommet::curr_id++;   
 }
 
 int Sommet::getID() const

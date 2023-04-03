@@ -15,6 +15,7 @@ public:
     Sommet(bool valide = true);
     int getID() const;
     bool getValide() const;
+    int static curr_id;
 };
 
 #endif
