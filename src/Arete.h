@@ -1,5 +1,5 @@
-#ifndef ARETE_H;
-#define ARETE_H;
+#ifndef ARETE_H
+#define ARETE_H
 
 /// @brief 
 class Arete
@@ -11,8 +11,10 @@ private:
 public:
     /// @brief 
     /// @param valide 
-    Arete(bool valide = true);
+    Arete(bool b = true);
     int getID() const;
     bool getValide() const;
     int static curr_id;
 };
+
+#endif

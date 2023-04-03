@@ -12,7 +12,7 @@ private:
 public:
     /// @brief 
     /// @param valide 
-    Sommet(bool valide = true);
+    Sommet(bool b = true);
     int getID() const;
     bool getValide() const;
     int static curr_id;
