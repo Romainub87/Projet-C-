@@ -175,7 +175,7 @@ bool GrapheValue::charger(std::string fichier)
             Arete a = ajouterArete(n1, n2);
             a.setOrigine(n1);
             a.setDestination(n2);
-            etiquetteArete(a, "");
+            etiquetteArete(a, "fairy tail > snk");
             couleurArete(a, Couleur(0, 0, 0, 255));
         }
     }
