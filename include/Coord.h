@@ -23,6 +23,7 @@ public:
     Coord& operator*=(const float &f);
     Coord& operator/=(const float &f);
     float operator[](int dim) const;
+    float& operator[](int dim);
 };
 
 #endif

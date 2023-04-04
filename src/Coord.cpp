@@ -68,13 +68,12 @@ Coord &Coord::operator/=(const float &f)
 
 float &Coord::operator[](int dim)
 {
-    return 0.0f;
-}
-
-float Coord::operator[](int dim) const
-{
-    Coord tmp(this->abs /= f, this->ord /= f);
-    return tmp;
+    if(dim == 0) {
+        return this->abs;
+    } else {
+        return this->ord;
+    }
+    
 }
 
 float Coord::operator[](int dim) const
