@@ -1,57 +1,60 @@
-#ifndef PROPRIETE_H
-#define PROPRIETE_H
+#ifndef PROPRIETE_HPP
+#define PROPRIETE_HPP
 
-#include "Arete.h"
+#include <map>
 #include "Sommet.h"
+#include "Arete.h"
+
 template <typename T>
 class Propriete
 {
 private:
-    std::map<Arete, T> m_aretes;
-    std::map<Sommet, T> m_sommets;
+    std::map<Sommet, T> m_sommetValues;
+    std::map<Arete, T> m_areteValues;
+
 public:
-    void changer(const Sommet n, const T &valeur);
-    void changer(const Arete e, const T &valeur);
-    T get(const Sommet n) const;
-    T get(const Arete e) const;
-    void supprimer(const Sommet n);
-    void supprimer(const Arete e);
+    void changer(Sommet n, const T &val);
+    void changer(Arete e, const T &val);
+    const T &valeur(Sommet n) const;
+    const T &valeur(Arete e) const;
+    void supprimer(Sommet n);
+    void supprimer(Arete e);
 };
 
 template <typename T>
-void Propriete<T>::changer(const Sommet n, const T &valeur)
+void Propriete<T>::changer(Sommet n, const T &val)
 {
-    m_sommets[n] = valeur;
+    m_sommetValues[n] = val;
 }
 
 template <typename T>
-void Propriete<T>::changer(const Arete e, const T &valeur)
+void Propriete<T>::changer(Arete e, const T &val)
 {
-    m_aretes[e] = valeur;
+    m_areteValues[e] = val;
 }
 
 template <typename T>
-T Propriete<T>::get(const Sommet n) const
+const T &Propriete<T>::valeur(Sommet n) const
 {
-    return m_sommets.at(n);
+    return m_sommetValues.at(n);
 }
 
 template <typename T>
-T Propriete<T>::get(const Arete e) const
+const T &Propriete<T>::valeur(Arete e) const
 {
-    return m_aretes.at(e);
+    return m_areteValues.at(e);
 }
 
 template <typename T>
-void Propriete<T>::supprimer(const Sommet n)
+void Propriete<T>::supprimer(Sommet n)
 {
-    m_sommets.erase(n);
+    m_sommetValues.erase(n);
 }
 
 template <typename T>
-void Propriete<T>::supprimer(const Arete e)
+void Propriete<T>::supprimer(Arete e)
 {
-    m_aretes.erase(e);
+    m_areteValues.erase(e);
 }
 
 #endif

@@ -4,6 +4,9 @@
 #include "Arete.h"
 #include "Sommet.h"
 #include "Graphe.h"
+#include "Propriete.hpp"
+#include "Couleur.h"
+#include "Coord.h"
 
 
 class GrapheValue: public Graphe
@@ -20,15 +23,18 @@ public:
     void supprimerSommet(const Sommet &n);
     void supprimerArete(const Arete &e);
     void positionSommet(Sommet n, Coord c);
-    Coord positionSommet(Sommet n);
+    Coord positionSommet(Sommet n) const;
     void positionsMinMax(Coord &min, Coord &max);
-    void couleursSommet(Sommet n, Couleur c);
-    Couleur couleursSommet(Sommet n);
-    void couleursArete(Arete e, Couleur c);
-    Couleur couleursArete(Arete e);
-    void etiquettesSommet(Sommet n, std::string s);
-    std::string etiquettesSommet(Sommet n) const;
-    void etiquettesArete(Arete e, std::string s);
-    std::string etiquettesArete(Arete e) const;
+    void couleurSommet(Sommet n, Couleur c);
+    Couleur couleurSommet(Sommet n);
+    void couleurArete(Arete e, Couleur c);
+    Couleur couleurArete(Arete e);
+    void etiquetteSommet(Sommet n, std::string s);
+    std::string etiquetteSommet(Sommet n) const;
+    void etiquetteArete(Arete e, std::string s);
+    std::string etiquetteArete(Arete e) const;
+    Propriete<Coord> getPositions() const;
 };
+
+#endif
 

@@ -1,4 +1,9 @@
 
+#ifndef COULEUR_H
+#define COULEUR_H
+
+#include <SFML/Graphics.hpp>
+
 class Couleur
 {
 private:
@@ -12,6 +17,10 @@ public:
     Couleur(int r, int g, int b, int alpha);
     Couleur interpoler(const Couleur &c, float t);
     bool operator==(const Couleur &c) const;
+    const int &operator[](int i) const;
+    int &operator[](int i);
+    sf::Color toSfColor() const;
     
 };
 
+#endif

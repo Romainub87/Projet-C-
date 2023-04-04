@@ -4,82 +4,110 @@ using namespace std;
 
 Coord::Coord(float x, float y)
 {
-    abs = x;
-    ord = y;
+    x = x;
+    y = y;
+}
+
+Coord::Coord()
+{
+    x = 0;
+    y = 0;
 }
 
 float Coord::norm() const
 {
-    return std::sqrt(std::pow(0 - abs, 2) + std::pow(0 - ord, 2));
+    return sqrt(x * x + y * y);
 }
 
 bool Coord::operator==(const Coord &c) const
 {
-    return this->abs == c.abs && this->ord == c.ord;
+    return x == c.x && y == c.y;
 }
 
 Coord Coord::operator+(const Coord &c) const
 {
-    Coord tmp(this->abs + c.abs, this->ord + c.ord);
-    return tmp;
+    return Coord(x + c.x, y + c.y);
 }
 
 Coord Coord::operator-(const Coord &c) const
 {
-    Coord tmp(this->abs - c.abs, this->ord - c.ord);
-    return tmp;
+    return Coord(x - c.x, y - c.y);
 }
 
 Coord &Coord::operator+=(const Coord &c)
 {
-    Coord tmp(this->abs += c.abs, this->ord += c.ord);
-    return tmp;
+    x += c.x;
+    y += c.y;
+    return *this;
 }
 
 Coord &Coord::operator-=(const Coord &c)
 {
-    Coord tmp(this->abs -= c.abs, this->ord -= c.ord);
-    return tmp;
+    x -= c.x;
+    y -= c.y;
+    return *this;
 }
 
 Coord Coord::operator*(const float &f) const
 {
-    Coord tmp(this->abs * f, this->ord * f);
-    return tmp;
+    return Coord(x * f, y * f);
 }
 
 Coord Coord::operator/(const float &f) const
 {
-    Coord tmp(this->abs / f, this->ord / f);
-    return tmp;
+    return Coord(x / f, y / f);
 }
 
 Coord &Coord::operator*=(const float &f)
 {
-    Coord tmp(this->abs *= f, this->ord *= f);
-    return tmp;
+    x *= f;
+    y *= f;
+    return *this;
 }
 
 Coord &Coord::operator/=(const float &f)
 {
-    Coord tmp(this->abs /= f, this->ord /= f);
-    return tmp;
-}
-
-float &Coord::operator[](int dim)
-{
-    if(dim == 0) {
-        return this->abs;
-    } else {
-        return this->ord;
-    }
-    
+    x /= f;
+    y /= f;
+    return *this;
 }
 
 float Coord::operator[](int dim) const
 {
-    if(dim == 0){ return this->abs; }
-    if(dim == 1) { return this->ord; }
-    return 0.0f; // Valeur de retour par défaut
+    if (dim == 0)
+        return x;
+    else if (dim == 1)
+        return y;
+    else
+        return 0;
 }
 
+float &Coord::operator[](int dim)
+{
+    if (dim == 0)
+        return x;
+    else if (dim == 1)
+        return y;
+    else
+        return x;
+}
+
+float Coord::getX() const
+{
+    return x;
+}
+
+float Coord::getY() const
+{
+    return y;
+}
+
+void Coord::setX(float x)
+{
+    x = x;
+}
+
+void Coord::setY(float y)
+{
+    y = y;
+}

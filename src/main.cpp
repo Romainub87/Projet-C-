@@ -3,6 +3,8 @@
 #include <algorithm>
 #include "Sommet.h"
 #include "Graphe.h"
+#include "GrapheValue.h"
+#include "Appli.h"
 #include "Arete.h"
 using namespace std;
 
@@ -34,15 +36,5 @@ int main(int argc, char *argv[])
         app.exec();
 
     return 0;
-
-    Graphe g;
-
-    g.charger(argv[1]);
-
-    // afficher nb d'aretes
-    cout << "Nombre d'aretes : " << g.nbAretes() << endl;
-
-    // afficher nb de sommets
-    cout << "Nombre de sommets : " << g.nbSommets() << endl;
 } 
 
