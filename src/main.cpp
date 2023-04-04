@@ -36,13 +36,14 @@ int main(int argc, char *argv[])
     return 0;
     */
 
-   Graphe g;
+    Graphe g;
 
-   g.charger(argv[1]);
+    if (argc == 2)
+    {
+        g.charger(argv[1]);
+    }
 
-
-   cout << "Sommets: " << g.nbSommets() << endl;
+    cout << "Sommets: " << g.nbSommets() << endl;
 
     cout << "Aretes: " << g.nbAretes() << endl;
 }
-
