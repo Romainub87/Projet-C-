@@ -18,10 +18,10 @@ private:
     Propriete<std::string> labels;
 public:
     bool charger(std::string fichier) override;
-    Sommet ajouterSommet();
-    Arete ajouterArete(const Sommet &n1, const Sommet &n2);
-    void supprimerSommet(const Sommet &n);
-    void supprimerArete(const Arete &e);
+    Sommet ajouterSommet() override;
+    Arete ajouterArete(const Sommet &n1, const Sommet &n2) override;
+    void supprimerSommet(const Sommet &n) override;
+    void supprimerArete(const Arete &e) override;
     void positionSommet(Sommet n, Coord c);
     Coord positionSommet(Sommet n) const;
     void positionsMinMax(Coord &min, Coord &max);

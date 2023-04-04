@@ -21,10 +21,10 @@ public:
     int degre(const Sommet &n) const;
     int nbSommets() const;
     int nbAretes() const;
-    Sommet ajouterSommet();
-    Arete ajouterArete(const Sommet &n1, const Sommet &n2);
-    void supprimerSommet(const Sommet &n);
-    void supprimerArete(const Arete &e);
+    virtual Sommet ajouterSommet();
+    virtual Arete ajouterArete(const Sommet &n1, const Sommet &n2);
+    virtual void supprimerSommet(const Sommet &n);
+    virtual void supprimerArete(const Arete &e);
     virtual bool charger(std::string fichier) ;
     static std::map<Arete, std::pair<Sommet, Sommet>> aretes2Extremites;
     static std::map<Sommet, std::set<Arete>> sommets2Incidentes;
