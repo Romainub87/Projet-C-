@@ -2,6 +2,7 @@
 #include <deque>
 #include <algorithm>
 #include "Sommet.h"
+#include "Graphe.h"
 #include "Arete.h"
 using namespace std;
 
@@ -34,5 +35,14 @@ int main(int argc, char *argv[])
 
     return 0;
     */
+
+   Graphe g;
+
+   g.charger(argv[1]);
+
+
+   cout << "Sommets: " << g.nbSommets() << endl;
+
+    cout << "Aretes: " << g.nbAretes() << endl;
 }
 
