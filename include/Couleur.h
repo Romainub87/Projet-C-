@@ -2,6 +2,8 @@
 #ifndef COULEUR_H
 #define COULEUR_H
 
+#include <SFML/Graphics.hpp>
+
 class Couleur
 {
 private:
