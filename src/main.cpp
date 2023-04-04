@@ -31,6 +31,12 @@ int main(int argc, char *argv[])
     Appli app {LARGEUR, HAUTEUR};
     app.setGraphe(g);
 
+    // affiche nb de sommet de g
+    cout << "Nombre de sommets : " << g.nbSommets() << endl;
+
+    // affiche nb d'aretes de g
+    cout << "Nombre d'aretes : " << g.nbAretes() << endl;
+
     // pour ne pas fermer la fenêtre après le dessin
     while(app.running())
         app.exec();

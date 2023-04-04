@@ -5,6 +5,9 @@
 #include "Sommet.h"
 #include "Arete.h"
 #include "Propriete.hpp"
+#include "utils.h"
+#include <fstream>
+#include <iostream>
 
 void GrapheValue::couleurArete(Arete e, Couleur c)
 {
@@ -107,4 +110,74 @@ void GrapheValue::supprimerSommet(const Sommet &n)
     couleurs.supprimer(n);
     labels.supprimer(n);
     positions.supprimer(n);
+}
+
+bool GrapheValue::charger(std::string fichier)
+{
+    map<int, Sommet> idSommet;
+
+    // Ajout des sommets
+    bool sommetsFinis = false;
+    std::ifstream in(fichier.c_str());
+    while (!in.eof())
+    {
+        std::string ligne;
+        std::getline(in, ligne);
+
+        if (ligne == "#sommet;position;couleur;etiquette")
+        {
+            continue;
+        }
+        else if (ligne == "#aretes")
+        {
+            sommetsFinis = true;
+        }
+        else if (!sommetsFinis)
+        {
+            std::vector<std::string> items;
+            decouper(ligne, items, ";");
+            if (items.size() != 4)
+                return false;
+
+            int id = stoi(items[0]);
+
+            std::vector<std::string> position;
+            decouper(items[1], position, " ");
+            Coord coord(stod(position[0]), stod(position[1]));
+
+            std::vector<std::string> couleur;
+            decouper(items[2], couleur, " ");
+            Couleur color(stoi(couleur[0]), stoi(couleur[1]), stoi(couleur[2]), stoi(couleur[3]));
+
+            std::string etiquette = items[3];
+
+            if (idSommet.find(id) != idSommet.end())
+                return false; // deux fois le meme identifiant dans le fichier
+            Sommet n = ajouterSommet();
+
+            positionSommet(n, coord);
+            couleurSommet(n, color);
+            etiquetteSommet(n, etiquette);
+
+            idSommet[id] = n;
+        }
+        else if (sommetsFinis && !ligne.empty())
+        {
+            std::vector<std::string> items;
+            decouper(ligne, items, " ");
+            if (items.size() != 2)
+                return false;
+
+            int id1 = stoi(items[0]);
+            int id2 = stoi(items[1]);
+
+            // test si les id sont corrects
+            if (idSommet.find(id1) == idSommet.end() || idSommet.find(id2) == idSommet.end())
+                return false;
+            Sommet n1 = idSommet[id1];
+            Sommet n2 = idSommet[id2];
+            ajouterArete(n1, n2);
+        }
+    }
+    return true;
 }
