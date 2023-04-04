@@ -13,13 +13,13 @@ LD = g++
 # C++ flags
 CXXFLAGS = -std=c++17
 # C/C++ flags
-CPPFLAGS = -Wall -Wextra -pedantic
+CPPFLAGS = -Wall
 # dependency-generation flags
-DEPFLAGS = 
+DEPFLAGS = -MMD -MP
 # linker flags
 LDFLAGS = 
 # library flags
-LDLIBS = -L./lib -lVueGraphe -lsfml-graphics -lsfml-window -lsfml-system
+LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -pthread
 
 INCLUDE = -I./include -I./cxx
 
@@ -39,7 +39,7 @@ DEPENDS := $(OBJECTS:.o=.d)
 # compile C++ source
 COMPILE.cxx = $(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INCLUDE) -c -o $@
 # link objects
-LINK.o = $(LD) $(OBJECTS) $(LDFLAGS) $(LDLIBS) -o $@ 
+LINK.o = $(LD) $(OBJECTS) -o $@ $(LDFLAGS) $(LDLIBS)
 
 .DEFAULT_GOAL = all
 

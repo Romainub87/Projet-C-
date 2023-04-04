@@ -104,10 +104,10 @@ float Coord::getY() const
 
 void Coord::setX(float x)
 {
-    x = x;
+    this->x = x;
 }
 
 void Coord::setY(float y)
 {
-    y = y;
+    this->y = y;
 }

@@ -88,3 +88,4 @@ std::string Sommet::getEtiquette() const
 {
     return this->etiquette;
 }
+
