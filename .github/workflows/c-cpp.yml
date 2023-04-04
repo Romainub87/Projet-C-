@@ -2,7 +2,7 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ "main","benjamin", "etape1" ]
+    branches: [ "main","benjamin", "etape1", "etape2", "couleur", "coord" ]
   pull_request:
     branches: [ "main" ]
 

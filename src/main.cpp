@@ -1,62 +1,46 @@
 #include <iostream>
+#include <deque>
+#include <algorithm>
 #include "Sommet.h"
-
-using namespace std;
-#include "Arete.h"
 #include "Graphe.h"
+#include "GrapheValue.h"
+#include "Appli.h"
+#include "Arete.h"
+using namespace std;
 
-int main()
+const int LARGEUR = 1200;
+const int HAUTEUR = 800;
+
+int main(int argc, char *argv[])
 {
-    cout << "main" << endl;
-
-    Graphe g;
-
-    Sommet n1 = g.ajouterSommet();
-    Sommet n2 = g.ajouterSommet();
-    Sommet n3 = g.ajouterSommet();
-    Arete a1 = g.ajouterArete(n1, n2);
-    Arete a2 = g.ajouterArete(n1, n3);
-
-    cout << "nb sommets: " << g.nbSommets() << endl;
-    cout << "nb aretes: " << g.nbAretes() << endl;
-
-    cout << "sommets: " << endl;
-    for (Sommet s : g.sommets())
-    {
-        cout << s.getID() << endl;
-    }
-
-    cout << "aretes: " << endl;
-    for (Arete a : g.aretes())
-    {
-        cout << a.getID() << endl;
-    }
-
-    cout << "voisins de n1: " << endl;
-    for (Sommet s : g.voisins(n1))
-    {
-        cout << s.getID() << endl;
-    }
-
-    cout << "incidentes de n1: " << endl;
-    for (Arete a : g.incidentes(n1))
-    {
-        cout << a.getID() << endl;
-    }
-
-    cout << "source de a1: " << endl;
-    cout << g.source(a1).getID() << endl;
-
-    cout << "destination de a1: " << endl;
-    cout << g.destination(a1).getID() << endl;
-
-    cout << "degre de n1: " << endl;
-    cout << g.degre(n1) << endl;
-
-    g.supprimerArete(a1);
-    cout << "nb aretes: " << g.nbAretes() << endl;
-
-    g.supprimerSommet(n1);
-    cout << "nb sommets: " << g.nbSommets() << endl;
     
-}
+    if (argc != 2){
+        cout << "Usage: ./app <graph_file>.txt" << endl;
+        return 1;
+    }
+    srand(time(NULL));
+
+    // chargement et création des graphe et fenetre d'affichage
+    string fichier (argv[1]);//"graphe.txt";//"fiat.txt"
+    GrapheValue g;
+    if(!g.charger(fichier)){
+        cout << "Erreur de chargement de fichier" << endl;
+        return 1;
+    }
+
+    Appli app {LARGEUR, HAUTEUR};
+    app.setGraphe(g);
+
+    // affiche nb de sommet de g
+    cout << "Nombre de sommets : " << g.nbSommets() << endl;
+
+    // affiche nb d'aretes de g
+    cout << "Nombre d'aretes : " << g.nbAretes() << endl;
+
+    // pour ne pas fermer la fenêtre après le dessin
+    while(app.running())
+        app.exec();
+
+    return 0;
+} 
+

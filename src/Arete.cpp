@@ -29,3 +29,29 @@ bool Arete::operator<(const Arete &autre) const
 {
     return this->getID() < autre.getID();
 }
+
+Sommet Arete::operator[](int i) const
+{
+    if (i == 0)
+    {
+        return this->origine;
+    }
+    else if (i == 1)
+    {
+        return this->destination;
+    }
+    else
+    {
+        throw "Index out of bounds";
+    }
+}
+
+Sommet Arete::getOrigine() const
+{
+    return this->origine;
+}
+
+Sommet Arete::getDestination() const
+{
+    return this->destination;
+}
