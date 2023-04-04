@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
     Graphe g;
 
-    g = Graphe::charger(argv[1]);
+    g.charger(argv[1]);
 
     // afficher nb d'aretes
     cout << "Nombre d'aretes : " << g.nbAretes() << endl;
