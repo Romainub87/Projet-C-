@@ -11,7 +11,7 @@ const int HAUTEUR = 800;
 
 int main(int argc, char *argv[])
 {
-    /*
+    
     if (argc != 2){
         cout << "Usage: ./app <graph_file>.txt" << endl;
         return 1;
@@ -34,7 +34,6 @@ int main(int argc, char *argv[])
         app.exec();
 
     return 0;
-    */
 
     Graphe g;
 
