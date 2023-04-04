@@ -20,7 +20,8 @@ public:
     const int &operator[](int i) const;
     int &operator[](int i);
     sf::Color toSfColor() const;
-    
+    sf::Color &operator*(float t);
+    int getR() const; 
 };
 
 #endif

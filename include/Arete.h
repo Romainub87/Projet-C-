@@ -22,6 +22,8 @@ public:
     bool operator==(const Arete &autre) const;
     bool operator<(const Arete &autre) const;
     Sommet operator[](int i) const;
+    void setOrigine(Sommet s);
+    void setDestination(Sommet s);
     Sommet getOrigine() const;
     Sommet getDestination() const;
 };

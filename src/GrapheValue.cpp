@@ -82,18 +82,12 @@ Couleur GrapheValue::couleurSommet(Sommet n)
 Arete GrapheValue::ajouterArete(const Sommet &n1, const Sommet &n2)
 {
     Arete e = Graphe::ajouterArete(n1, n2);
-    Couleur c = Couleur(0, 0, 0, 0);
-    couleurArete(e, c);
-    etiquetteArete(e, "");
     return e;
 }
 
 Sommet GrapheValue::ajouterSommet()
 {
     Sommet n = Graphe::ajouterSommet();
-    Couleur c = Couleur(0, 0, 0, 0);
-    couleurSommet(n, c);
-    etiquetteSommet(n, "");
     return n;
 }
 
@@ -143,19 +137,20 @@ bool GrapheValue::charger(std::string fichier)
 
             std::vector<std::string> position;
             decouper(items[1], position, " ");
-            Coord coord(stod(position[0]), stod(position[1]));
+            Coord coord = Coord();
+            coord.setX(stof(position[0]));
+            coord.setY(stof(position[1]));
 
             std::vector<std::string> couleur;
             decouper(items[2], couleur, " ");
             Couleur color(stoi(couleur[0]), stoi(couleur[1]), stoi(couleur[2]), stoi(couleur[3]));
-
             std::string etiquette = items[3];
 
             if (idSommet.find(id) != idSommet.end())
                 return false; // deux fois le meme identifiant dans le fichier
             Sommet n = ajouterSommet();
-
-            positionSommet(n, coord);
+            n.setX(coord.getX());
+            n.setY(coord.getY());
             couleurSommet(n, color);
             etiquetteSommet(n, etiquette);
 
@@ -171,12 +166,17 @@ bool GrapheValue::charger(std::string fichier)
             int id1 = stoi(items[0]);
             int id2 = stoi(items[1]);
 
+
             // test si les id sont corrects
             if (idSommet.find(id1) == idSommet.end() || idSommet.find(id2) == idSommet.end())
                 return false;
             Sommet n1 = idSommet[id1];
             Sommet n2 = idSommet[id2];
-            ajouterArete(n1, n2);
+            Arete a = ajouterArete(n1, n2);
+            a.setOrigine(n1);
+            a.setDestination(n2);
+            etiquetteArete(a, "");
+            couleurArete(a, Couleur(0, 0, 0, 255));
         }
     }
     return true;

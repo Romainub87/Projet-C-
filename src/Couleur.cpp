@@ -70,3 +70,18 @@ int &Couleur::operator[](int i)
         return this->r;
     }
 }
+
+sf::Color &Couleur::operator*(float t)
+{
+    this->r *= t;
+    this->g *= t;
+    this->b *= t;
+    this->alpha *= t;
+    sf::Color c = this->toSfColor();
+    return c;
+}
+
+int Couleur::getR() const
+{
+    return this->r;
+}

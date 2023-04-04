@@ -166,6 +166,7 @@ bool Graphe::charger(std::string fichier)
 
             int id1 = stoi(items[0]);
             int id2 = stoi(items[1]);
+            
 
             // test si les id sont corrects
             if (idSommet.find(id1) == idSommet.end() || idSommet.find(id2) == idSommet.end())

@@ -55,3 +55,13 @@ Sommet Arete::getDestination() const
 {
     return this->destination;
 }
+
+void Arete::setOrigine(Sommet s)
+{
+    this->origine = s;
+}
+
+void Arete::setDestination(Sommet s)
+{
+    this->destination = s;
+}
