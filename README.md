@@ -1,6 +1,6 @@
 # Projet-C-
 
-## Team
+## Équipe
 - Romain Cordier
 - Benjamin Loupiac
 
