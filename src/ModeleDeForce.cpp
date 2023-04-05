@@ -26,59 +26,17 @@ void ModeleDeForce::initialiserDessin(unsigned int largeur, unsigned int hauteur
 
 Coord ModeleDeForce::calculerAttractions(const Sommet &n)
 {
-    Coord force(0, 0);
-    for (const Sommet &s : m_g->voisins())
-    {
-        if (s != n)
-        {
-            Coord vecteur = n.position() - s.position();
-            float distance = vecteur.norme();
-            if (distance < 1)
-            {
-                distance = 1;
-            };
-            force += vecteur * (1 / distance);
-        };
-    };
-    return force;
+    
 }
 
 Coord ModeleDeForce::calculerRepulsions(const Sommet &n)
 {
-    Coord force(0, 0);
-    for (const Sommet &s : m_g->sommets())
-    {
-        if (s != n)
-        {
-            Coord vecteur = n.position() - s.position();
-            float distance = vecteur.norme();
-            if (distance < 1)
-            {
-                distance = 1;
-            };
-            force += vecteur * (1 / distance);
-        };
-    };
-    return force;
+   
 }
 
 Coord ModeleDeForce::calculerForces(const Sommet &n)
 {
-    Coord force(0, 0);
-    for (const Sommet &s : m_g->sommets())
-    {
-        if (s != n)
-        {
-            Coord vecteur = n.position() - s.position();
-            float distance = vecteur.norme();
-            if (distance < 1)
-            {
-                distance = 1;
-            };
-            force += vecteur * (1 / distance);
-        };
-    };
-    return force;
+    
 };
 
 void ModeleDeForce::deplacer(const Sommet &n, Coord deplacement)
