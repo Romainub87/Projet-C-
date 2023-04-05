@@ -2,9 +2,11 @@
 #include <iostream>
 #include <fstream>
 #include "GrapheValue.h"
+#include "GrapheObserve.h"
+using namespace std;
 
-const float Appli::RAYON = 10;
-const std::string Appli::FICHIER_FONT = "../fonts/FreeSans.ttf";
+const float Appli::RAYON = 3;
+const std::string Appli::FICHIER_FONT = "FreeSans.ttf";
 
 Appli::Appli(unsigned int largeur, unsigned int hauteur)
 {
@@ -18,10 +20,6 @@ Appli::Appli(unsigned int largeur, unsigned int hauteur)
     m_etiquette.setFont(m_font);
     m_etiquette.setCharacterSize(20);
     m_etiquette.setFillColor(sf::Color::Black);
-    m_sommet.setRadius(RAYON);
-    m_sommet.setFillColor(sf::Color::White);
-    m_sommet.setOutlineColor(sf::Color::Black);
-    m_sommet.setOutlineThickness(2);
     m_montre_etiquette = false;
     m_interpoler_couleurs = false;
     m_g = nullptr;
@@ -78,33 +76,104 @@ void Appli::traiter_evenements()
 void Appli::dessiner()
 {
     m_fenetre.clear(sf::Color::White);
-    if (m_g != nullptr)
+    for (auto &a : m_aretes)
     {
-
-        // dessine les aretes du graphe
-        for (auto a : m_g->aretes())
+        // transforme a.second en vertex
+        sf::Vertex ligne[] = {
+            a.second.first,
+            a.second.second};
+        m_fenetre.draw(ligne, 2, sf::Lines);
+    }
+    if (m_interpoler_couleurs)
+    {
+        for (auto &a : m_aretes)
         {
+            cout << "Interpolation" << endl;
+            // transforme a.second en vertex
+
             sf::Vertex ligne[] = {
-                sf::Vertex(sf::Vector2f(a.getOrigine().getX(), a.getOrigine().getY()), m_g->couleurArete(a).toSfColor()),
-                sf::Vertex(sf::Vector2f(a.getDestination().getX(), a.getDestination().getY()), m_g->couleurArete(a).toSfColor())};
+                sf::Vertex(sf::Vector2f(a.first.getOrigine().getX(), a.first.getOrigine().getY()), a.first.getOrigine().getCouleur().toSfColor()),
+                sf::Vertex(sf::Vector2f(a.first.getDestination().getX(), a.first.getDestination().getY()), a.first.getDestination().getCouleur().toSfColor())};
+            m_aretes.insert(std::make_pair(a.first, std::make_pair(ligne[0], ligne[1])));
             m_fenetre.draw(ligne, 2, sf::Lines);
-
-            cout << a.getOrigine().getX() << " " << a.getOrigine().getY() << endl;
-            cout << m_g->couleurArete(a).getR() << endl;
         }
-        // dessine les sommets du graphe
-        for (auto s : m_g->sommets())
+    }
+    for (auto &s : m_sommets)
+    {
+        m_fenetre.draw(s.second);
+    }
+    if (m_montre_etiquette)
+    {
+        for (auto &s : m_sommets)
         {
-            m_sommet.setPosition(s.getX() - RAYON, s.getY() - RAYON);
-            m_sommet.setFillColor(m_g->couleurSommet(s).toSfColor());
-            m_fenetre.draw(m_sommet);
-            if (m_montre_etiquette)
-            {
-                m_etiquette.setString(m_g->etiquetteSommet(s));
-                m_etiquette.setPosition(s.getX(), s.getY());
-                m_fenetre.draw(m_etiquette);
-            }
+            m_etiquette.setString(std::to_string(s.first.getID()));
+            m_etiquette.setPosition(s.second.getPosition().x + RAYON, s.second.getPosition().y + RAYON);
+            m_fenetre.draw(m_etiquette);
         }
     }
     m_fenetre.display();
+}
+
+void Appli::traiterAjout(const Sommet &n)
+{
+    cout << "Ajout sommet " << n.getID() << endl;
+    creerFormeSommet(n);
+}
+
+void Appli::traiterAjout(const Arete &e)
+{
+    cout << "Ajout arete " << e.getID() << endl;
+    creerFormeArete(e);
+}
+
+void Appli::traiterSuppression(const Sommet &n)
+{
+    cout << "Suppression sommet " << n.getID() << endl;
+    m_sommets.erase(n);
+}
+
+void Appli::traiterSuppression(const Arete &e)
+{
+    cout << "Suppression arete " << e.getID() << endl;
+    m_aretes.erase(e);
+}
+
+void Appli::traiterProprieteChangee(const Sommet &n)
+{
+    cout << "Modification sommet " << n.getID() << endl;
+    Appli::dessiner();
+}
+
+void Appli::traiterProprieteChangee(const Arete &e)
+{
+    cout << "Modification arete " << e.getID() << endl;
+    Appli::dessiner();
+}
+
+void Appli::creerFormeSommet(const Sommet &s)
+{
+    sf::CircleShape c(RAYON);
+    c.setPosition(s.getX() - RAYON, s.getY() - RAYON);
+    cout << "Couleur sommet " << s.getCouleur().getR() << endl;
+    c.setFillColor(s.getCouleur().toSfColor());
+    c.setOutlineColor(sf::Color::Black);
+    c.setOutlineThickness(1);
+    m_sommets.insert(std::make_pair(s, c));
+}
+
+void Appli::creerFormeArete(Arete a)
+{
+    // couleur grise pour les aretes
+    sf::Color couleur = Couleur(128, 128, 128, 50).toSfColor();
+    // creer les aeretes
+
+    sf::Vertex ligne[] = {
+        sf::Vertex(sf::Vector2f(a.getOrigine().getX(), a.getOrigine().getY()), couleur),
+        sf::Vertex(sf::Vector2f(a.getDestination().getX(), a.getDestination().getY()), couleur)};
+    m_aretes.insert(std::make_pair(a, std::make_pair(ligne[0], ligne[1])));
+}
+
+void Appli::calculerFormesGeometriques()
+{
+    Appli::dessiner();
 }

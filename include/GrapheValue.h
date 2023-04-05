@@ -7,9 +7,11 @@
 #include "Propriete.hpp"
 #include "Couleur.h"
 #include "Coord.h"
+#include "GrapheObserve.h"
+#include "ObservateurGraphe.h"
 
 
-class GrapheValue: public Graphe
+class GrapheValue: public Graphe, public GrapheObserve
 {
 private:
     /* data */
@@ -34,6 +36,14 @@ public:
     void etiquetteArete(Arete e, std::string s);
     std::string etiquetteArete(Arete e) const;
     Propriete<Coord> getPositions() const;
+    void notifierAjout(const Sommet &n) override;
+    void notifierAjout(const Arete &e) override;
+    void notifierSuppression(const Arete &e) override;
+    void notifierSuppression(const Sommet &n) override;
+    void notifierProprieteChangee(const Sommet &n) override;
+    void notifierProprieteChangee(const Arete &e) override;
+    void attacher(ObservateurGraphe *observateur) override;
+    void detacher(ObservateurGraphe *observateur) override;
 };
 
 #endif

@@ -8,6 +8,7 @@
 #include "utils.h"
 #include <fstream>
 #include <iostream>
+#include "GrapheObserve.h"
 
 void GrapheValue::couleurArete(Arete e, Couleur c)
 {
@@ -151,8 +152,9 @@ bool GrapheValue::charger(std::string fichier)
             Sommet n = ajouterSommet();
             n.setX(coord.getX());
             n.setY(coord.getY());
-            couleurSommet(n, color);
+            n.setCouleur(color);
             etiquetteSommet(n, etiquette);
+            notifierAjout(n);
 
             idSommet[id] = n;
         }
@@ -166,7 +168,6 @@ bool GrapheValue::charger(std::string fichier)
             int id1 = stoi(items[0]);
             int id2 = stoi(items[1]);
 
-
             // test si les id sont corrects
             if (idSommet.find(id1) == idSommet.end() || idSommet.find(id2) == idSommet.end())
                 return false;
@@ -176,8 +177,52 @@ bool GrapheValue::charger(std::string fichier)
             a.setOrigine(n1);
             a.setDestination(n2);
             etiquetteArete(a, "fairy tail > snk");
-            couleurArete(a, Couleur(0, 0, 0, 255));
+            couleurArete(a, Couleur(125, 125, 125, 50));
+            notifierAjout(a);
         }
     }
     return true;
+}
+
+void GrapheValue::notifierAjout(const Sommet &n)
+{
+
+    GrapheObserve::notifierAjout(n);
+    cout << "notifierAjoutSommet" << endl;
+}
+
+void GrapheValue::notifierAjout(const Arete &e)
+{
+    GrapheObserve::notifierAjout(e);
+    cout << "notifierAjoutArete" << endl;
+}
+
+void GrapheValue::notifierSuppression(const Sommet &n)
+{
+    GrapheObserve::notifierSuppression(n);
+}
+
+void GrapheValue::notifierSuppression(const Arete &e)
+{
+    GrapheObserve::notifierSuppression(e);
+}
+
+void GrapheValue::notifierProprieteChangee(const Sommet &n)
+{
+    GrapheObserve::notifierProprieteChangee(n);
+}
+
+void GrapheValue::notifierProprieteChangee(const Arete &e)
+{
+    GrapheObserve::notifierProprieteChangee(e);
+}
+
+void GrapheValue::attacher(ObservateurGraphe *o)
+{
+    GrapheObserve::attacher(o);
+}
+
+void GrapheValue::detacher(ObservateurGraphe *o)
+{
+    GrapheObserve::detacher(o);
 }

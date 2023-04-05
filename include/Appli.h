@@ -2,8 +2,9 @@
 #define APPLI_H
 #include <SFML/Graphics.hpp>
 #include "GrapheValue.h"
+#include "ObservateurGraphe.h"
 
-class Appli
+class Appli : public ObservateurGraphe
 {
 public:
     Appli(unsigned int largeur, unsigned int hauteur);
@@ -13,13 +14,29 @@ public:
     bool running() const;
     void exec();
 
+    void traiterAjout(const Sommet &n) override;
+    void traiterAjout(const Arete &e) override;
+
+    void traiterSuppression(const Arete &e) override;
+    /// @brief 
+    /// @param n 
+    void traiterSuppression(const Sommet &n) override;
+
+    void traiterProprieteChangee(const Sommet &n) override;
+    void traiterProprieteChangee(const Arete &e) override;
+    
+    void creerFormeSommet(const Sommet &n);
+    void creerFormeArete(Arete e);    
+    void calculerFormesGeometriques();
+
 private:
     sf::RenderWindow m_fenetre;
     sf::View m_vue;
 
     sf::Font m_font;
 
-    sf::CircleShape m_sommet;
+    std::map<Sommet, sf::CircleShape> m_sommets;
+    std::map<Arete, std::pair<sf::Vertex, sf::Vertex> > m_aretes;
     sf::Text m_etiquette;
     GrapheValue *m_g;
 

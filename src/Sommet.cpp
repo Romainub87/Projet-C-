@@ -84,6 +84,7 @@ Couleur Sommet::getCouleur() const
     return this->couleur;
 }
 
+
 std::string Sommet::getEtiquette() const
 {
     return this->etiquette;
