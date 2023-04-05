@@ -8,7 +8,7 @@ using namespace std;
 const float Appli::RAYON = 3;
 const std::string Appli::FICHIER_FONT = "FreeSans.ttf";
 
-Appli::Appli(unsigned int largeur, unsigned int hauteur)
+Appli::Appli(unsigned int largeur, unsigned int hauteur) : m_mutex(PTHREAD_MUTEX_INITIALIZER)
 {
     m_largeur = largeur;
     m_hauteur = hauteur;
@@ -116,42 +116,46 @@ void Appli::dessiner()
 
 void Appli::traiterAjout(const Sommet &n)
 {
-    cout << "Ajout sommet " << n.getID() << endl;
     creerFormeSommet(n);
 }
 
 void Appli::traiterAjout(const Arete &e)
 {
-    cout << "Ajout arete " << e.getID() << endl;
     creerFormeArete(e);
 }
 
 void Appli::traiterSuppression(const Sommet &n)
 {
-    cout << "Suppression sommet " << n.getID() << endl;
+    pthread_mutex_lock(&m_mutex);
+    
     m_sommets.erase(n);
+
+    pthread_mutex_unlock(&m_mutex);
 }
 
 void Appli::traiterSuppression(const Arete &e)
 {
-    cout << "Suppression arete " << e.getID() << endl;
+    pthread_mutex_lock(&m_mutex);
+
     m_aretes.erase(e);
+
+    pthread_mutex_unlock(&m_mutex);
 }
 
 void Appli::traiterProprieteChangee(const Sommet &n)
 {
-    cout << "Modification sommet " << n.getID() << endl;
     Appli::dessiner();
 }
 
 void Appli::traiterProprieteChangee(const Arete &e)
 {
-    cout << "Modification arete " << e.getID() << endl;
     Appli::dessiner();
 }
 
 void Appli::creerFormeSommet(const Sommet &s)
 {
+    pthread_mutex_lock(&m_mutex);
+
     sf::CircleShape c(RAYON);
     c.setPosition(s.getX() - RAYON, s.getY() - RAYON);
     cout << "Couleur sommet " << s.getCouleur().getR() << endl;
@@ -159,10 +163,14 @@ void Appli::creerFormeSommet(const Sommet &s)
     c.setOutlineColor(sf::Color::Black);
     c.setOutlineThickness(1);
     m_sommets.insert(std::make_pair(s, c));
+
+    pthread_mutex_unlock(&m_mutex);
 }
 
-void Appli::creerFormeArete(Arete a)
+void Appli::creerFormeArete(Arete a) 
 {
+    pthread_mutex_lock(&m_mutex);
+
     // couleur grise pour les aretes
     sf::Color couleur = Couleur(128, 128, 128, 50).toSfColor();
     // creer les aeretes
@@ -171,6 +179,8 @@ void Appli::creerFormeArete(Arete a)
         sf::Vertex(sf::Vector2f(a.getOrigine().getX(), a.getOrigine().getY()), couleur),
         sf::Vertex(sf::Vector2f(a.getDestination().getX(), a.getDestination().getY()), couleur)};
     m_aretes.insert(std::make_pair(a, std::make_pair(ligne[0], ligne[1])));
+
+    pthread_mutex_unlock(&m_mutex);
 }
 
 void Appli::calculerFormesGeometriques()

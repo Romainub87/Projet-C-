@@ -43,6 +43,8 @@ private:
     bool m_montre_etiquette;
     bool m_interpoler_couleurs;
 
+    pthread_mutex_t m_mutex;
+
     static const float RAYON;
     static const std::string FICHIER_FONT;
 
