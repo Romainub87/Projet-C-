@@ -9,8 +9,6 @@ std::set<ObservateurGraphe *> GrapheObserve::m_observateurs;
 
 void GrapheObserve::notifierAjout(const Sommet &n)
 {
-    cout << "notifierAjoutRecu" << endl;
-    cout << m_observateurs.size() << " observateur(s)" << endl;
     for (auto observateur : m_observateurs){
         observateur->traiterAjout(n);
     }

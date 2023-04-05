@@ -88,7 +88,6 @@ void Appli::dessiner()
     {
         for (auto &a : m_aretes)
         {
-            cout << "Interpolation" << endl;
             // transforme a.second en vertex
 
             sf::Vertex ligne[] = {
@@ -158,7 +157,6 @@ void Appli::creerFormeSommet(const Sommet &s)
 
     sf::CircleShape c(RAYON);
     c.setPosition(s.getX() - RAYON, s.getY() - RAYON);
-    cout << "Couleur sommet " << s.getCouleur().getR() << endl;
     c.setFillColor(s.getCouleur().toSfColor());
     c.setOutlineColor(sf::Color::Black);
     c.setOutlineThickness(1);

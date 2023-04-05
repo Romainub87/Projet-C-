@@ -188,13 +188,11 @@ void GrapheValue::notifierAjout(const Sommet &n)
 {
 
     GrapheObserve::notifierAjout(n);
-    cout << "notifierAjoutSommet" << endl;
 }
 
 void GrapheValue::notifierAjout(const Arete &e)
 {
     GrapheObserve::notifierAjout(e);
-    cout << "notifierAjoutArete" << endl;
 }
 
 void GrapheValue::notifierSuppression(const Sommet &n)
