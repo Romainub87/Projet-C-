@@ -24,6 +24,7 @@ public:
     Coord& operator/=(const float &f);
     float operator[](int dim) const;
     float& operator[](int dim);
+    
     float getX() const;
     float getY() const;
     void setX(float x);

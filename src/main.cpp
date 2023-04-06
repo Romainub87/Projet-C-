@@ -7,6 +7,7 @@
 #include "Appli.h"
 #include "Arete.h"
 #include "GrapheObserve.h"
+#include "ModeleDeForce.h"
 using namespace std;
 
 const int LARGEUR = 1200;
@@ -24,14 +25,14 @@ void * miseAJourAppli(void * param) {
 int main(int argc, char *argv[])
 {
     pthread_t thread;
-
+    pthread_t thread2;
     if (argc != 2){
         cout << "Usage: ./app <graph_file>.txt" << endl;
         return 1;
     }
     srand(time(NULL));
 
-
+  
     // chargement et création des graphe et fenetre d'affichage
     string fichier (argv[1]);//"graphe.txt";//"fiat.txt"
     GrapheValue g;
@@ -55,5 +56,7 @@ int main(int argc, char *argv[])
     pthread_create(&thread, NULL, miseAJourAppli, &app);
     pthread_join(thread, NULL);
 
+    pthread_create(&thread2, NULL, ModeleDeForce::dessiner, &g);
+    pthread_join(thread, NULL);
     return 0;
 } 

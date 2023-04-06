@@ -13,6 +13,7 @@
 void GrapheValue::couleurArete(Arete e, Couleur c)
 {
     couleurs.changer(e, c);
+    notifierProprieteChangee(e);
 }
 
 Couleur GrapheValue::couleurArete(Arete e)
@@ -23,6 +24,7 @@ Couleur GrapheValue::couleurArete(Arete e)
 void GrapheValue::etiquetteSommet(Sommet n, std::string s)
 {
     labels.changer(n, s);
+    notifierProprieteChangee(n);
 }
 
 std::string GrapheValue::etiquetteSommet(Sommet n) const
@@ -33,6 +35,7 @@ std::string GrapheValue::etiquetteSommet(Sommet n) const
 void GrapheValue::etiquetteArete(Arete e, std::string s)
 {
     labels.changer(e, s);
+    notifierProprieteChangee(e);
 }
 
 std::string GrapheValue::etiquetteArete(Arete e) const
@@ -43,6 +46,7 @@ std::string GrapheValue::etiquetteArete(Arete e) const
 void GrapheValue::positionSommet(Sommet n, Coord c)
 {
     positions.changer(n, c);
+    notifierProprieteChangee(n);
 }
 
 Coord GrapheValue::positionSommet(Sommet n) const
@@ -73,6 +77,7 @@ void GrapheValue::positionsMinMax(Coord &min, Coord &max)
 void GrapheValue::couleurSommet(Sommet n, Couleur c)
 {
     couleurs.changer(n, c);
+    notifierProprieteChangee(n);
 }
 
 Couleur GrapheValue::couleurSommet(Sommet n)
@@ -83,18 +88,21 @@ Couleur GrapheValue::couleurSommet(Sommet n)
 Arete GrapheValue::ajouterArete(const Sommet &n1, const Sommet &n2)
 {
     Arete e = Graphe::ajouterArete(n1, n2);
+    notifierAjout(e);
     return e;
 }
 
 Sommet GrapheValue::ajouterSommet()
 {
     Sommet n = Graphe::ajouterSommet();
+    notifierAjout(n);
     return n;
 }
 
 void GrapheValue::supprimerArete(const Arete &e)
 {
     Graphe::supprimerArete(e);
+    notifierSuppression(e);
     couleurs.supprimer(e);
     labels.supprimer(e);
 }
@@ -102,6 +110,7 @@ void GrapheValue::supprimerArete(const Arete &e)
 void GrapheValue::supprimerSommet(const Sommet &n)
 {
     Graphe::supprimerSommet(n);
+    notifierSuppression(n);
     couleurs.supprimer(n);
     labels.supprimer(n);
     positions.supprimer(n);
@@ -150,9 +159,8 @@ bool GrapheValue::charger(std::string fichier)
             if (idSommet.find(id) != idSommet.end())
                 return false; // deux fois le meme identifiant dans le fichier
             Sommet n = ajouterSommet();
-            n.setX(coord.getX());
-            n.setY(coord.getY());
-            n.setCouleur(color);
+            positionSommet(n, coord);
+            couleurSommet(n, color);
             etiquetteSommet(n, etiquette);
             notifierAjout(n);
 

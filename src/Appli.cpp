@@ -76,6 +76,7 @@ void Appli::traiter_evenements()
 void Appli::dessiner()
 {
     m_fenetre.clear(sf::Color::White);
+    pthread_mutex_lock(&m_mutex);
     for (auto &a : m_aretes)
     {
         // transforme a.second en vertex
@@ -110,6 +111,7 @@ void Appli::dessiner()
             m_fenetre.draw(m_etiquette);
         }
     }
+    pthread_mutex_unlock(&m_mutex);
     m_fenetre.display();
 }
 
@@ -156,8 +158,7 @@ void Appli::creerFormeSommet(const Sommet &s)
     pthread_mutex_lock(&m_mutex);
 
     sf::CircleShape c(RAYON);
-    c.setPosition(s.getX() - RAYON, s.getY() - RAYON);
-    c.setFillColor(s.getCouleur().toSfColor());
+    c.setPosition(m_g->positionSommet(s).getX() - RAYON, m_g->positionSommet(s).getY() - RAYON);
     c.setOutlineColor(sf::Color::Black);
     c.setOutlineThickness(1);
     m_sommets.insert(std::make_pair(s, c));
