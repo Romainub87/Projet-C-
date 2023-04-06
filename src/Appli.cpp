@@ -85,6 +85,7 @@ void Appli::dessiner()
             a.second.second};
         m_fenetre.draw(ligne, 2, sf::Lines);
     }
+    /*
     if (m_interpoler_couleurs)
     {
         for (auto &a : m_aretes)
@@ -98,6 +99,7 @@ void Appli::dessiner()
             m_fenetre.draw(ligne, 2, sf::Lines);
         }
     }
+    */
     for (auto &s : m_sommets)
     {
         m_fenetre.draw(s.second);
@@ -128,7 +130,7 @@ void Appli::traiterAjout(const Arete &e)
 void Appli::traiterSuppression(const Sommet &n)
 {
     pthread_mutex_lock(&m_mutex);
-    
+
     m_sommets.erase(n);
 
     pthread_mutex_unlock(&m_mutex);
@@ -145,12 +147,30 @@ void Appli::traiterSuppression(const Arete &e)
 
 void Appli::traiterProprieteChangee(const Sommet &n)
 {
-    Appli::dessiner();
+    pthread_mutex_lock(&m_mutex);
+
+    cout << "traiterProprieteChangee" << endl;
+    cout << m_g->positionSommet(n).getX() << endl;
+    cout << m_g->positionSommet(n).getY() << endl;
+
+    sf::CircleShape c(RAYON);
+    c.setPosition(m_g->positionSommet(n).getX() - RAYON, m_g->positionSommet(n).getY() - RAYON);
+    c.setFillColor(n.getCouleur().toSfColor());
+    m_sommets[n] = c;
+
+    pthread_mutex_unlock(&m_mutex);
 }
 
 void Appli::traiterProprieteChangee(const Arete &e)
 {
-    Appli::dessiner();
+    pthread_mutex_lock(&m_mutex);
+
+    sf::Vertex ligne[] = {
+        sf::Vertex(sf::Vector2f(e.getOrigine().getX(), e.getOrigine().getY()), e.getOrigine().getCouleur().toSfColor()),
+        sf::Vertex(sf::Vector2f(e.getDestination().getX(), e.getDestination().getY()), e.getDestination().getCouleur().toSfColor())};
+    m_aretes[e] = std::make_pair(ligne[0], ligne[1]);
+
+    pthread_mutex_unlock(&m_mutex);
 }
 
 void Appli::creerFormeSommet(const Sommet &s)
@@ -166,7 +186,7 @@ void Appli::creerFormeSommet(const Sommet &s)
     pthread_mutex_unlock(&m_mutex);
 }
 
-void Appli::creerFormeArete(Arete a) 
+void Appli::creerFormeArete(Arete a)
 {
     pthread_mutex_lock(&m_mutex);
 
@@ -175,8 +195,8 @@ void Appli::creerFormeArete(Arete a)
     // creer les aeretes
 
     sf::Vertex ligne[] = {
-        sf::Vertex(sf::Vector2f(a.getOrigine().getX(), a.getOrigine().getY()), couleur),
-        sf::Vertex(sf::Vector2f(a.getDestination().getX(), a.getDestination().getY()), couleur)};
+        sf::Vertex(sf::Vector2f(m_g->positionSommet(a.getOrigine()).getX(), m_g->positionSommet(a.getOrigine()).getY()), couleur),
+        sf::Vertex(sf::Vector2f(m_g->positionSommet(a.getDestination()).getX(), m_g->positionSommet(a.getDestination()).getY()), couleur)};
     m_aretes.insert(std::make_pair(a, std::make_pair(ligne[0], ligne[1])));
 
     pthread_mutex_unlock(&m_mutex);
