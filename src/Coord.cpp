@@ -4,8 +4,8 @@ using namespace std;
 
 Coord::Coord(float x, float y)
 {
-    x = x;
-    y = y;
+    this->x = x;
+    this->y = y;
 }
 
 Coord::Coord()

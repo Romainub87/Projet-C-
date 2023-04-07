@@ -7,8 +7,7 @@ class Arete
 {
 private:
     /* data */
-    Sommet origine;
-    Sommet destination;
+
     int id;
     bool valide;
 
@@ -21,11 +20,6 @@ public:
     int static curr_id;
     bool operator==(const Arete &autre) const;
     bool operator<(const Arete &autre) const;
-    Sommet operator[](int i) const;
-    void setOrigine(Sommet s);
-    void setDestination(Sommet s);
-    Sommet getOrigine() const;
-    Sommet getDestination() const;
 };
 
 #endif

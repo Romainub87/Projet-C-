@@ -55,10 +55,9 @@ int main(int argc, char *argv[])
 
     // pour ne pas fermer la fenêtre après le dessin
     pthread_create(&thread, NULL, miseAJourAppli, &app);
-    pthread_join(thread, NULL);
-
     pthread_create(&thread2, NULL, ModeleDeForce::dessiner, &g);
     pthread_join(thread, NULL);
+    pthread_join(thread2, NULL);
     
     return 0;
 } 

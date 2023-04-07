@@ -33,7 +33,6 @@ std::string GrapheValue::etiquetteSommet(Sommet n) const
 void GrapheValue::etiquetteArete(Arete e, std::string s)
 {
     labels.changer(e, s);
-
 }
 
 std::string GrapheValue::etiquetteArete(Arete e) const
@@ -154,12 +153,8 @@ bool GrapheValue::charger(std::string fichier)
                 return false; // deux fois le meme identifiant dans le fichier
             Sommet n = ajouterSommet();
             positionSommet(n, coord);
-            cout << positionSommet(n).getX() << endl;
-            cout << positionSommet(n).getY() << endl;
             couleurSommet(n, color);
-            cout << couleurSommet(n).getR() << endl;
             etiquetteSommet(n, etiquette);
-            cout << etiquetteSommet(n) << endl;
             notifierAjout(n);
             notifierProprieteChangee(n);
 
@@ -181,10 +176,8 @@ bool GrapheValue::charger(std::string fichier)
             Sommet n1 = idSommet[id1];
             Sommet n2 = idSommet[id2];
             Arete a = ajouterArete(n1, n2);
-            a.setOrigine(n1);
-            a.setDestination(n2);
-            etiquetteArete(a, "");
             couleurArete(a, Couleur(125, 125, 125, 50));
+            etiquetteArete(a, "");
             notifierAjout(a);
             notifierProprieteChangee(a);
         }

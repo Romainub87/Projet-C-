@@ -18,15 +18,23 @@ ModeleDeForce::ModeleDeForce(GrapheValue *g)
 
 void ModeleDeForce::initialiserDessin(unsigned int largeur, unsigned int hauteur)
 {
+    // initialiser les positions des sommets aleatoirement en float avec real_distribution
     std::random_device rd;
-    std::mt19937 rng(rd());
-    std::uniform_int_distribution<int> distributionX(0, largeur);
-    std::uniform_int_distribution<int> distributionY(0, hauteur);
-
-    for (Sommet s : m_g->sommets()) {
-        Coord tmp(distributionX(rng), distributionY(rng));
-        m_g->positionSommet(s, tmp);
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> disX(0, largeur);
+    std::uniform_real_distribution<> disY(0, hauteur);
+    for (Sommet s : m_g->sommets())
+    {
+        Coord c(disX(gen), disY(gen));
+        m_g->positionSommet(s, c);
+        m_g->notifierProprieteChangee(s);
     }
+
+    for (Arete a : m_g->aretes())
+    {
+        m_g->notifierProprieteChangee(a);
+    }
+
 }
 
 
@@ -37,7 +45,7 @@ Coord ModeleDeForce::calculerAttractions(const Sommet &n)
     for (Sommet s : m_g->voisins(n))
     {
 
-        Coord coordU(m_g->positionSommet(s).getX(), m_g->position(s).getY());
+        Coord coordU(m_g->positionSommet(s).getX(), m_g->positionSommet(s).getY());
         cout << coordU.getX() << " " << coordU.getY() << endl;
         Coord vecteur = coordV - coordU;
         cout << vecteur.getX() << " " << vecteur.getY() << endl;
@@ -92,20 +100,17 @@ void ModeleDeForce::deplacer(const Sommet &n, Coord deplacement)
         if (depY < maxDeplacement)
         {
             
-            m_g->positionSommet(som, m_g->positionSommet(n).getX() + depX);
-            m_g->positionSommet(som, m_g->positionSommet(n).getY() + depY);
+            m_g->positionSommet(som, m_g->positionSommet(n) + deplacement);
             
         }
         else
         {
-            m_g->positionSommet(som, m_g->positionSommet(n).getX());
-            m_g->positionSommet(som, m_g->positionSommet(n).getY());
+            m_g->positionSommet(som, m_g->positionSommet(n));
         }
     }
     else
     {
-        m_g->positionSommet(som, m_g->positionSommet(n).getX());
-            m_g->positionSommet(som, m_g->positionSommet(n).getY());
+        m_g->positionSommet(som, m_g->positionSommet(n));
     }
     maxDeplacement = maxDeplacement - 1;
 }
