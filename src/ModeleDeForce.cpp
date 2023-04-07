@@ -24,25 +24,25 @@ void ModeleDeForce::initialiserDessin(unsigned int largeur, unsigned int hauteur
     std::uniform_int_distribution<int> distributionY(0, hauteur);
 
     for (Sommet s : m_g->sommets()) {
-        s.setX(distributionX(rng));
-        s.setY(distributionY(rng));
+        Coord tmp(distributionX(rng), distributionY(rng));
+        m_g->positionSommet(s, tmp);
     }
 }
 
 
 Coord ModeleDeForce::calculerAttractions(const Sommet &n)
 {
-    Coord coordV(n.getX(), n.getY());
+    Coord coordV(m_g->positionSommet(n).getX(), m_g->positionSommet(n).getY());
     Coord sommeAttraction(0, 0);
     for (Sommet s : m_g->voisins(n))
     {
 
-        Coord coordU(s.getX(), s.getY());
+        Coord coordU(m_g->positionSommet(s).getX(), m_g->position(s).getY());
         cout << coordU.getX() << " " << coordU.getY() << endl;
         Coord vecteur = coordV - coordU;
         cout << vecteur.getX() << " " << vecteur.getY() << endl;
         float distance = vecteur.norm();
-        sommeAttraction += vecteur * (distance / 30);
+        sommeAttraction += vecteur * (distance*distance / 30);
     }
 
     if (sommeAttraction.norm() > 300)
@@ -62,9 +62,9 @@ Coord ModeleDeForce::calculerRepulsions(const Sommet &n)
     {
 
         Coord coordU(s.getX(), s.getY());
-        Coord vecteur = coordU - coordV;
+        Coord vecteur = coordV - coordU;
         float distance = vecteur.norm();
-        sommeRepultion += vecteur * (distance / 30);
+        sommeRepultion += vecteur * (30/distance*distance*distance );
     }
 
     if (sommeRepultion.norm() > 60)
@@ -92,20 +92,20 @@ void ModeleDeForce::deplacer(const Sommet &n, Coord deplacement)
         if (depY < maxDeplacement)
         {
             
-            som.setX(n.getX() + depX);
-            som.setY(n.getY() + depY);
+            m_g->positionSommet(som, m_g->positionSommet(n).getX() + depX);
+            m_g->positionSommet(som, m_g->positionSommet(n).getY() + depY);
             
         }
         else
         {
-            som.setX(n.getX());
-            som.setY(n.getY());
+            m_g->positionSommet(som, m_g->positionSommet(n).getX());
+            m_g->positionSommet(som, m_g->positionSommet(n).getY());
         }
     }
     else
     {
-        som.setX(n.getX());
-        som.setY(n.getY());
+        m_g->positionSommet(som, m_g->positionSommet(n).getX());
+            m_g->positionSommet(som, m_g->positionSommet(n).getY());
     }
     maxDeplacement = maxDeplacement - 1;
 }
@@ -127,12 +127,12 @@ Coord ModeleDeForce::calculerForceGravite(const Sommet &n)
     int nbSommet = m_g->nbSommets();
     Coord totalPosition(0,0);
     for(Sommet s : m_g->sommets()){
-        Coord c(s.getX(), s.getY());
+        Coord c(m_g->positionSommet(s).getX(), m_g->positionSommet(s).getY());
         totalPosition += c;
 
     }
     Coord bary = totalPosition/nbSommet;
-    Coord cV(n.getX(), n.getY());
+    Coord cV(m_g->positionSommet(n).getX(), m_g->positionSommet(n).getY());
     return (bary-cV)*0.1f;
 }
 
