@@ -9,7 +9,7 @@
 - Jour 2 : Etape 2 finie -> début Etape 3 & 4
 - Jour 3 : Etape 3 & 4 finies -> début Etape 5
 - Jour 4 : Etape 5 avancée -> Etape 5 à finir
-- Jour 5 : 
+- Jour 5 : Etape 5 (deplacements vers le centre mais pas attraction ni répulsion)
 
 ## Résultats
 #### Après Etape 3 & 4
