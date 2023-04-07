@@ -4,6 +4,7 @@
 #include <map>
 #include "Sommet.h"
 #include "Arete.h"
+#include <cassert>
 
 template <typename T>
 class Propriete
@@ -35,7 +36,8 @@ void Propriete<T>::changer(Arete e, const T &val)
 
 template <typename T>
 const T &Propriete<T>::valeur(Sommet n) const
-{
+{   
+    assert(m_sommetValues.find(n) != m_sommetValues.end());
     return m_sommetValues.at(n);
 }
 

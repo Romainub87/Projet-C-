@@ -13,7 +13,6 @@
 void GrapheValue::couleurArete(Arete e, Couleur c)
 {
     couleurs.changer(e, c);
-    notifierProprieteChangee(e);
 }
 
 Couleur GrapheValue::couleurArete(Arete e)
@@ -24,7 +23,6 @@ Couleur GrapheValue::couleurArete(Arete e)
 void GrapheValue::etiquetteSommet(Sommet n, std::string s)
 {
     labels.changer(n, s);
-    notifierProprieteChangee(n);
 }
 
 std::string GrapheValue::etiquetteSommet(Sommet n) const
@@ -35,7 +33,7 @@ std::string GrapheValue::etiquetteSommet(Sommet n) const
 void GrapheValue::etiquetteArete(Arete e, std::string s)
 {
     labels.changer(e, s);
-    notifierProprieteChangee(e);
+
 }
 
 std::string GrapheValue::etiquetteArete(Arete e) const
@@ -46,7 +44,6 @@ std::string GrapheValue::etiquetteArete(Arete e) const
 void GrapheValue::positionSommet(Sommet n, Coord c)
 {
     positions.changer(n, c);
-    notifierProprieteChangee(n);
 }
 
 Coord GrapheValue::positionSommet(Sommet n) const
@@ -77,7 +74,6 @@ void GrapheValue::positionsMinMax(Coord &min, Coord &max)
 void GrapheValue::couleurSommet(Sommet n, Couleur c)
 {
     couleurs.changer(n, c);
-    notifierProprieteChangee(n);
 }
 
 Couleur GrapheValue::couleurSommet(Sommet n)
@@ -165,6 +161,7 @@ bool GrapheValue::charger(std::string fichier)
             etiquetteSommet(n, etiquette);
             cout << etiquetteSommet(n) << endl;
             notifierAjout(n);
+            notifierProprieteChangee(n);
 
             idSommet[id] = n;
         }
@@ -186,9 +183,10 @@ bool GrapheValue::charger(std::string fichier)
             Arete a = ajouterArete(n1, n2);
             a.setOrigine(n1);
             a.setDestination(n2);
-            etiquetteArete(a, "fairy tail > snk");
+            etiquetteArete(a, "");
             couleurArete(a, Couleur(125, 125, 125, 50));
             notifierAjout(a);
+            notifierProprieteChangee(a);
         }
     }
     return true;

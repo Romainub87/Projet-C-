@@ -25,7 +25,7 @@ void * miseAJourAppli(void * param) {
 int main(int argc, char *argv[])
 {
     pthread_t thread;
-    pthread_t thread2;
+    //pthread_t thread2;
     if (argc != 2){
         cout << "Usage: ./app <graph_file>.txt" << endl;
         return 1;
@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
     GrapheValue g;
 
     Appli app {LARGEUR, HAUTEUR};
+    app.setGraphe(g);
     g.attacher(&app);
 
      if (!g.charger(fichier))
@@ -55,8 +56,9 @@ int main(int argc, char *argv[])
     // pour ne pas fermer la fenêtre après le dessin
     pthread_create(&thread, NULL, miseAJourAppli, &app);
     pthread_join(thread, NULL);
-
+/*
     pthread_create(&thread2, NULL, ModeleDeForce::dessiner, &g);
     pthread_join(thread, NULL);
+    */
     return 0;
 } 
