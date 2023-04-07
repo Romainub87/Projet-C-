@@ -23,7 +23,6 @@ public:
     void deplacer(const Sommet &v, Coord deplacement);
     void executer();
     Coord calculerForceGravite(const Sommet &n);
-    int static maxDeplacement;
     static void *dessiner(void *vg);
 };
 

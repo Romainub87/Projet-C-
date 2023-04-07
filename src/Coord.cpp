@@ -26,7 +26,7 @@ bool Coord::operator==(const Coord &c) const
 
 Coord Coord::operator+(const Coord &c) const
 {
-    return Coord(x + c.x, y + c.y);
+    return Coord(this->x + c.getX(), this->y + c.getY());
 }
 
 Coord Coord::operator-(const Coord &c) const
@@ -36,8 +36,8 @@ Coord Coord::operator-(const Coord &c) const
 
 Coord &Coord::operator+=(const Coord &c)
 {
-    x += c.x;
-    y += c.y;
+    this->x += c.x;
+    this->y += c.y;
     return *this;
 }
 
