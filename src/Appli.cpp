@@ -175,7 +175,11 @@ void Appli::traiterProprieteChangee(const Arete &e)
 
 void Appli::creerFormeSommet(const Sommet &s)
 {
+    cout << s.getID() << endl;
+    cout << "je suis arrivé" << endl;
+    cout << m_g->positionSommet(s).getX() << endl;
     pthread_mutex_lock(&m_mutex);
+
 
     sf::CircleShape c(RAYON);
     c.setPosition(m_g->positionSommet(s).getX() - RAYON, m_g->positionSommet(s).getY() - RAYON);

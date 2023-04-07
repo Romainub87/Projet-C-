@@ -1,5 +1,6 @@
 #include "Graphe.h"
 #include "utils.h"
+#include "Propriete.hpp"
 #include <iostream>
 #include <vector>
 #include <set>

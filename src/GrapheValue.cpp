@@ -88,14 +88,12 @@ Couleur GrapheValue::couleurSommet(Sommet n)
 Arete GrapheValue::ajouterArete(const Sommet &n1, const Sommet &n2)
 {
     Arete e = Graphe::ajouterArete(n1, n2);
-    notifierAjout(e);
     return e;
 }
 
 Sommet GrapheValue::ajouterSommet()
 {
     Sommet n = Graphe::ajouterSommet();
-    notifierAjout(n);
     return n;
 }
 
@@ -160,8 +158,12 @@ bool GrapheValue::charger(std::string fichier)
                 return false; // deux fois le meme identifiant dans le fichier
             Sommet n = ajouterSommet();
             positionSommet(n, coord);
+            cout << positionSommet(n).getX() << endl;
+            cout << positionSommet(n).getY() << endl;
             couleurSommet(n, color);
+            cout << couleurSommet(n).getR() << endl;
             etiquetteSommet(n, etiquette);
+            cout << etiquetteSommet(n) << endl;
             notifierAjout(n);
 
             idSommet[id] = n;
